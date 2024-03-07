@@ -1,0 +1,9 @@
+import os
+path_to_file = './Alphabet/'
+os.mkdir(path_to_file)
+def generate_text_files():
+	alphabet = string.ascii_uppercase
+	for letter in alphabet:
+		filename = letter + '.py'
+		filename.open(f'{path_to_file}{letter}', 'w')
+		filename.write('')
