@@ -1,6 +1,8 @@
 import pygame
 from color_palette import*
 
+THICKNESS = 5
+
 def rect(screen):
     x_local, y_local = x, y
     width, height = x2-x, y2-y
@@ -11,13 +13,13 @@ def rect(screen):
         y_local = y2
         height = y - y2
 
-    pygame.draw.rect(screen, colors[current_color], (x_local, y_local, width, height), width=3)
+    pygame.draw.rect(screen, colors[current_color], (x_local, y_local, width, height), THICKNESS)
 
 def circle(screen):
-    pygame.draw.circle(screen, colors[current_color], (x,y), radius=((x2-x)**2+(y2-y)**2)**0.5, width=3)
+    pygame.draw.circle(screen, colors[current_color], (x,y), radius=((x2-x)**2+(y2-y)**2)**0.5, width= THICKNESS)
 
 def eraser(screen):
-    pygame.draw.circle(screen_work, (colorWHITE), (x2, y2), radius=10)
+    pygame.draw.circle(screen_work, (colorWHITE), (x2, y2), radius= THICKNESS)
     #global x, y, x2, y2
     #pygame.draw.line(screen_work, (0, 0, 0), (x, y), (x2, y2), width=20)
     #x, y = x2, y2
@@ -51,6 +53,11 @@ while program:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             program = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_MINUS:
+                THICKNESS -= 1
+            elif event.key == pygame.K_EQUALS:
+                THICKNESS += 1
         if event.type == pygame.MOUSEBUTTONDOWN:
             x, y = pygame.mouse.get_pos()
             if 145 <= x <= 285 and 755 <= y <= 800:
