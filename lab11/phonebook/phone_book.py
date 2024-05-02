@@ -61,22 +61,22 @@ def update_user():
             if ask == "no":
                 break
 
-def quary():
+def pattern_quary():
     while True:
-        print("Phone, name or all?")
+        print("Phone or name?")
         out = input()
         if out == "name":
-            cursor.execute("""SELECT name FROM phone_book""")
+            pattern = input("Enter the pattern: ")
+            cursor.execute(f"""SELECT * FROM phone_book
+                           WHERE name LIKE '%{pattern}%'""")
             result = cursor.fetchall()
             for row in result:
-                print(row[0])
+                name, phone_book = row
+                print(name, phone_book)
         elif out == "phone":
-            cursor.execute("""SELECT phone_number FROM phone_book""")
-            result = cursor.fetchall()
-            for row in result:
-                print(row[0])
-        elif out == "all":
-            cursor.execute("""SELECT * FROM phone_book""")
+            pattern = input("Enter the pattern: ")
+            cursor.execute(f"""SELECT * FROM phone_book
+                           WHERE phone_number LIKE '%{pattern}%'""")
             result = cursor.fetchall()
             for row in result:
                 name, phone_book = row
@@ -124,7 +124,7 @@ while True:
     elif action == 3:
         update_user()
     elif action == 4:
-        quary()
+        pattern_quary()
     elif action == 5:
         delete_data()
     elif action == 6:
